@@ -1,11 +1,12 @@
-# <project_name>
+# Portfolio
 
-> <project_quick_description>
+> My personal portfolio
 
-## Important informations
+## Important information
 
-- **Licence** : <license>
-- **Creation date** : <creation_date>
+- **Licence** : Licence MIT
+> You can use this template for your own portfolio but not making it pays.
+- **Creation date** : 09-04-2025
 
 ## Team
 
@@ -52,12 +53,16 @@ Each commit line is prefixed by :
 - Git
 - Make
 - Docker
+- Figma
 
 ## Technologies
 
 - GitHub : Code version manager
 - Make : Quick commands for utilities
 - Docker
+- ReactJS
+- Scss
+- Figma
 
 ## Quick launch process
 
@@ -67,4 +72,4 @@ Each commit line is prefixed by :
 
 ## Util links 
 
-- [GitHub Project](https://github.com/users/<github_pseudo>/projects/<github_project_id>)
+- [GitHub Project](https://github.com/users/yahvya/projects/19)

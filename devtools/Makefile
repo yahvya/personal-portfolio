@@ -1,6 +1,6 @@
 #[ DEVTOOLS
 
-PROJECT_NAME=
+PROJECT_NAME=Portfolio
 GITHUB_ORIGIN=master
 
 #]
