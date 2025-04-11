@@ -63,6 +63,7 @@ Each commit line is prefixed by :
 - ReactJS
 - Scss
 - Figma
+- Storybook
 
 ## Quick launch process
 

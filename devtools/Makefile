@@ -59,3 +59,23 @@ project-init:
 	@echo Everything is ok
 	
 #]
+
+#[ DEV COMMAND
+
+# initialize development configuration
+dev-init:
+	cd ../dev/portfolio && pnpm i && pnpm approve-builds
+
+# launch the development server
+dev-launch-dev:
+	cd ../dev/portfolio && pnpm run dev
+
+# launch the storybook server
+dev-launch-storybook:
+	cd ../dev/portfolio && pnpm run storybook
+
+# lint code
+dev-lint:
+	cd ../dev/portfolio && pnpm run lint --fix
+
+#]
