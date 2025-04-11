@@ -1,5 +1,35 @@
 // fonts
 
+@font-face {
+    font-family: "Jetbrains Mono";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/fonts/JetBrainsMono-2.304/webfonts/JetBrainsMono-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Jetbrains Mono";
+    font-style: normal;
+    font-weight: bold;
+    src: url("/fonts/JetBrainsMono-2.304/webfonts/JetBrainsMono-Bold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Jetbrains Mono";
+    font-style: normal;
+    font-weight: 600;
+    src: url("/fonts/JetBrainsMono-2.304/webfonts/JetBrainsMono-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Jetbrains Mono";
+    font-style: normal;
+    font-weight: 300;
+    src: url("/fonts/JetBrainsMono-2.304/webfonts/JetBrainsMono-Thin.woff2") format("woff2");
+}
+
+// classes
+
 .small-text {
     font-family: "JetBrains Mono", Arial, sans-serif;
     font-size: 16px;
