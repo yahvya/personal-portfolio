@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     authors: [
         {name: "Yahaya Bathily", url: process.env.PERSONAL_GITHUB_LINK}
     ],
-    category: "",
+    category: "Portfolio",
     keywords: [ "portfolio", "développeur", "fullstack", "web", "mobile", "programmation", "freelance", "informatique" ],
     robots: {index: true, follow: true},
     creator: "Yahaya Bathily"
