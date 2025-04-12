@@ -9,7 +9,7 @@ import classNames from "classnames"
  * @param animate Specify if it should animate
  * @constructor
  */
-export default function StackElement(
+export function StackElement(
     {
         text,
         elementImageUrl,
@@ -23,7 +23,7 @@ export default function StackElement(
 ): React.ReactElement {
     const classnames: string = classNames(
         "stack-element",
-        "basic-text",
+        "basic-text-bold",
         {animate: animate}
     )
 

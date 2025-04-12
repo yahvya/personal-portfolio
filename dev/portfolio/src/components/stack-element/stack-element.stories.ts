@@ -1,4 +1,4 @@
-import StackElement from "@/components/stack-element/stack-element"
+import {StackElement} from "@/components/stack-element/stack-element"
 import {Meta, StoryObj} from "@storybook/react"
 import jsImage from "stories-assets/js.jpg"
 
