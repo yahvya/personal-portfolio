@@ -1,0 +1,21 @@
+.calendar-element {
+    background-color: var(--secondary-light-background);
+    color: var(--secondary-light-text);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+
+    &:not(.selected):hover {
+        opacity: 0.7;
+    }
+
+    &.selected {
+        background-color: var(--secondary-text);
+        color: var(--secondary-background);
+    }
+}

@@ -1,0 +1,81 @@
+// fonts
+
+@font-face {
+    font-family: "Jetbrains Mono";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/fonts/JetBrainsMono-2.304/webfonts/JetBrainsMono-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Jetbrains Mono";
+    font-style: normal;
+    font-weight: bold;
+    src: url("/fonts/JetBrainsMono-2.304/webfonts/JetBrainsMono-Bold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Jetbrains Mono";
+    font-style: normal;
+    font-weight: 600;
+    src: url("/fonts/JetBrainsMono-2.304/webfonts/JetBrainsMono-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Jetbrains Mono";
+    font-style: normal;
+    font-weight: 300;
+    src: url("/fonts/JetBrainsMono-2.304/webfonts/JetBrainsMono-Thin.woff2") format("woff2");
+}
+
+// classes
+
+.small-text {
+    font-family: "JetBrains Mono", Arial, sans-serif;
+    font-size: 16px;
+}
+
+.small-text-bold {
+    @extend .small-text;
+    font-weight: bold;
+}
+
+.basic-text {
+    font-family: "JetBrains Mono", Arial, sans-serif;
+    font-size: 18px;
+}
+
+.basic-text-bold {
+    @extend .basic-text;
+    font-weight: bold;
+}
+
+.large-text {
+    font-family: "JetBrains Mono", Arial, sans-serif;
+    font-size: 70px;
+}
+
+.large-text-bold {
+    @extend .large-text;
+    font-weight: bold;
+}
+
+// colors
+
+:root {
+    --primary-background: #0D0D0D;
+    --primary-text: FFFFFF;
+    --secondary-background: #191919;
+    --secondary-text: #FFFFFF;
+    --secondary-light-text: #FFFFFF;
+    --secondary-light-background: #4A4A4A;
+}
+
+// default styles
+
+body {
+    @extend .basic-text;
+
+    background-color: var(--primary-background);
+    color: var(--primary-text);
+}
