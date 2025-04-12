@@ -28,9 +28,7 @@ export function StackElement(
     )
 
     return (
-        <div
-            className={classnames}
-        >
+        <div className={classnames}>
             <img src={elementImageUrl} alt={text}/>
             <span>{text}</span>
         </div>

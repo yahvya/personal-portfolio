@@ -15,6 +15,8 @@ const meta: Meta = {
 
 export default meta
 
+// stories
+
 export const DefaultInput: FormInputStory = {
     args: {
         inputPlaceholder: "Entrez votre email",
