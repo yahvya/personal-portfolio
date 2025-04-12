@@ -90,7 +90,7 @@ export function Calendar(
     }, [ selectedDayData ])
 
     const daysList: string[] = [ "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche" ]
-    const pastDate = new Date(year, startMonth - 1, 0)
+    const pastDate = new Date(year, currentMonth - 1, 0)
     const daysOfMonth: DayInfo[] = getDaysInMonth({month: currentMonth, year: year})
 
     const formatedCalendarDays: (DayInfo | null)[][] = []
@@ -116,7 +116,18 @@ export function Calendar(
     return (
         <div className="calendar">
             <div className="calendar-container">
-                <p className="calendar-title">{monthString} {year}</p>
+                <div className="calendar-header-controls">
+                    <p className="calendar-title">{monthString} {year}</p>
+                    <div className="controls">
+                        <span
+                            onClick={() => currentMonth - 1 > 0 ? setCurrentMonth(currentMonth - 1) : setCurrentMonth(12)}
+                        >&lt;</span>
+
+                        <span
+                            onClick={() => currentMonth + 1 < 12 ? setCurrentMonth(currentMonth + 1) : setCurrentMonth(0)}
+                        >&gt;</span>
+                    </div>
+                </div>
 
                 <table>
                     <thead>

@@ -14,12 +14,16 @@
         margin: 0;
     }
 
-    .calendar-container table {
-        margin-top: 30px;
-        border-spacing: 35px;
+    .calendar-container {
+        padding-right: 10px;
 
-        thead th {
-            padding-bottom: 30px;
+        table {
+            margin-top: 30px;
+            border-spacing: 35px;
+
+            thead th {
+                padding-bottom: 30px;
+            }
         }
     }
 
@@ -28,5 +32,30 @@
         flex-direction: column;
         align-items: center;
         gap: 30px;
+        border-left: solid 1px var(--secondary-light-background);
+        padding-left: 10px;
+    }
+
+    .calendar-header-controls, .calendar-header-controls .controls {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+    .calendar-header-controls .controls {
+        gap: 10px;
+        font-weight: bold;
+        font-size: 25px;
+        cursor: pointer;
+
+        & span {
+            transition: opacity 0.2s;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
     }
 }
