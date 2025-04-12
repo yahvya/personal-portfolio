@@ -5,8 +5,11 @@ import jsImage from "stories-assets/js.jpg"
 type StackElementStory = StoryObj<typeof StackElement>
 
 const meta: Meta = {
-    title: "Stack element",
-    component: StackElement
+    title: "UI/Stack element",
+    component: StackElement,
+    argTypes: {
+        elementImageUrl: {control: "file"}
+    }
 }
 
 export default meta
