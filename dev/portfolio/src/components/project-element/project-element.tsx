@@ -26,7 +26,7 @@ export function ProjectElement(
         onClickHandler: React.MouseEventHandler<HTMLDivElement>
     }
 ): React.ReactElement {
-    const indexString: string = [ 0, 1 ].includes(index) ? `0${index}` : `${index}`
+    const indexString: string = index < 10 ? `0${index}` : `${index}`
 
     return (
         <div
