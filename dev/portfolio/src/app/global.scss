@@ -64,7 +64,7 @@
 
 :root {
     --primary-background: #0D0D0D;
-    --primary-text: FFFFFF;
+    --primary-text: #FFFFFF;
     --secondary-background: #191919;
     --secondary-text: #FFFFFF;
     --secondary-light-text: #FFFFFF;
@@ -78,4 +78,13 @@ body {
 
     background-color: var(--primary-background);
     color: var(--primary-text);
+}
+
+main {
+    padding: 20px 20px 300px;
+}
+
+a {
+    text-decoration: inherit;
+    color: inherit;
 }
