@@ -1,13 +1,29 @@
 .project-page {
-
+    &.hide {
+        display: none;
+    }
 }
 
 .project-details-page {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 70px;
+
+    .close {
+        text-decoration: underline;
+        margin-bottom: 30px !important;
+        transition: opacity 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
     .container {
         width: fit-content;
         min-width: 50%;
-        max-width: 90%;
-        margin: auto;
 
         p {
             margin: 0;
@@ -20,6 +36,15 @@
                 text-transform: uppercase;
                 margin-bottom: 20px;
             }
+        }
+    }
+
+    .images-container {
+        width: 500px;
+
+        img {
+            max-width: 100%;
+            margin-bottom: 15px;
         }
     }
 }
