@@ -1,6 +1,7 @@
 import React from "react"
 import "./global.scss"
 import {Metadata} from "next"
+import {AppQueryClientProvider} from "@/components/query-client-provider/app-query-client-provider";
 
 /**
  * Metadata
@@ -28,10 +29,12 @@ export default function SinglePageLayout(
     { children: React.ReactNode }
 ): React.ReactElement {
     return (
-        <html lang="fr">
-        <body>
-        <main>{children}</main>
-        </body>
-        </html>
+        <AppQueryClientProvider>
+            <html lang="fr">
+            <body>
+            <main>{children}</main>
+            </body>
+            </html>
+        </AppQueryClientProvider>
     )
 }

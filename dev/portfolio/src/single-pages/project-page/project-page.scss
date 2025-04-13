@@ -1,0 +1,25 @@
+.project-page {
+
+}
+
+.project-details-page {
+    .container {
+        width: fit-content;
+        min-width: 50%;
+        max-width: 90%;
+        margin: auto;
+
+        p {
+            margin: 0;
+        }
+
+        .a-section {
+            margin-top: 40px;
+
+            p:first-child {
+                text-transform: uppercase;
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
