@@ -24,6 +24,7 @@ interface ProjectDescriptor {
 /**
  * Show project details
  * @param project Project details
+ * @param onExit Action on exit click
  * @constructor
  */
 function ProjectDetailsPage(
