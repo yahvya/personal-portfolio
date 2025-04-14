@@ -5,6 +5,7 @@ import {CodeBlock, androidstudio} from "react-code-blocks"
 import {motion} from "motion/react"
 import {linksConfig, textToPrint, typingConfig} from "@/single-pages/home-page/config"
 import Link from "next/link"
+import {opacitySlideUpAnimation} from "@/animations/motion-common";
 
 /**
  * Home page
@@ -45,12 +46,7 @@ export function HomePage(): React.ReactElement {
                     <div className="main-row">
                         <motion.div
                             className="code-block"
-                            initial={{
-                                opacity: 0
-                            }}
-                            whileInView={{
-                                opacity: 1
-                            }}
+                            {...opacitySlideUpAnimation}
                         >
                             <CodeBlock
                                 text={textToPrint}
@@ -63,12 +59,7 @@ export function HomePage(): React.ReactElement {
 
                         <motion.div
                             className="img-container"
-                            initial={{
-                                opacity: 0
-                            }}
-                            whileInView={{
-                                opacity: 1
-                            }}
+                            {...opacitySlideUpAnimation}
                         >
                             <img src="/images/me.jpg" alt="Me"/>
                         </motion.div>
@@ -80,12 +71,7 @@ export function HomePage(): React.ReactElement {
                                 <motion.div
                                     className="link"
                                     key={index}
-                                    initial={{
-                                        opacity: 0
-                                    }}
-                                    whileInView={{
-                                        opacity: 1
-                                    }}
+                                    {...opacitySlideUpAnimation}
                                 >
                                     <Link
                                         href={linkConfig.link()}

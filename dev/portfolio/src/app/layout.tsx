@@ -31,7 +31,7 @@ export default function SinglePageLayout(
     return (
         <AppQueryClientProvider>
             <html lang="fr">
-            <body>
+            <body cz-shortcut-listen="true">
             <main>{children}</main>
             </body>
             </html>

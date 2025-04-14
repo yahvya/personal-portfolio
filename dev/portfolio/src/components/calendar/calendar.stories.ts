@@ -17,7 +17,8 @@ export const DefaultCalendar: CalenderStory = {
     args: {
         startMonth: 4,
         year: 2025,
-        availabilityGetter: async (): Promise<AvailabilityMap> => {
+        availabilityGetter: async (selectedMonth: number): Promise<AvailabilityMap> => {
+            console.log(selectedMonth)
             return {
                 1: [
                     {start: "8H", end: "10H"},

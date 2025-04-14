@@ -16,7 +16,7 @@ type DayInfo = {
 /**
  * An availability format
  */
-interface Availability {
+export interface Availability {
     start: string,
     end: string
 }
@@ -70,24 +70,29 @@ export function Calendar(
     {
         startMonth: number,
         year: number,
-        availabilityGetter: (selectedDay: number) => Promise<AvailabilityMap>,
-        onAvailabilityChosen: (selectedDay: number, availability: Availability) => void
+        availabilityGetter: (selectedMonth: number, selectedDay: number) => Promise<AvailabilityMap>,
+        onAvailabilityChosen: (selectedMonth: number, selectedDay: number, availability: Availability) => void
     }
 ): React.ReactElement {
     // states and effects
-    const [ currentMonth, setCurrentMonth ] = useState<number>(startMonth)
+    const [ currentMonth, setCurrentMonth ] = useState<number>(startMonth + 1)
     const [ selectedDayData, setSelectedDay ] = useState<DayInfo | null>(null)
     const [ availabilityMap, setAvailabilityMap ] = useState<AvailabilityMap | null>(null)
     const [ selectedAvailability, setSelectedAvailability ] = useState<number | null>(null)
 
     useEffect((): void => {
         if (selectedDayData) {
-            availabilityGetter(selectedDayData.number)
+            availabilityGetter(currentMonth === 1 ? 12 : currentMonth - 1, selectedDayData.number)
                 .then((availabilityMap: AvailabilityMap): void => setAvailabilityMap(availabilityMap))
 
             setSelectedAvailability(null)
         }
     }, [ selectedDayData ])
+
+    useEffect(() => {
+        setSelectedDay(null)
+        setAvailabilityMap(null)
+    }, [ currentMonth ])
 
     const daysList: string[] = [ "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche" ]
     const pastDate = new Date(year, currentMonth - 1, 0)
@@ -113,6 +118,28 @@ export function Calendar(
     // month string
     const monthString: string = format(pastDate, "LLLL", {locale: fr})
 
+    // handlers
+
+    const decrementCurrentMonth = (): void => {
+        currentMonth - 1 > 0 ? setCurrentMonth(currentMonth - 1) : setCurrentMonth(12)
+    }
+
+    const incrementCurrentMonth = (): void => {
+        currentMonth + 1 < 12 ? setCurrentMonth(currentMonth + 1) : setCurrentMonth(0)
+    }
+
+    const handleSelectDay = (rowDay: DayInfo) => {
+        selectedDayData?.number !== rowDay.number && setSelectedDay({
+            number: rowDay.number,
+            day: rowDay.day
+        })
+    }
+
+    const calendarDayChoiceHandler = (index: number, availabity: Availability): void => {
+        setSelectedAvailability(index)
+        onAvailabilityChosen(currentMonth === 1 ? 12 : currentMonth - 1, selectedDayData!.number, availabity)
+    }
+
     return (
         <div className="calendar">
             <div className="calendar-container">
@@ -120,11 +147,11 @@ export function Calendar(
                     <p className="calendar-title">{monthString} {year}</p>
                     <div className="controls">
                         <span
-                            onClick={() => currentMonth - 1 > 0 ? setCurrentMonth(currentMonth - 1) : setCurrentMonth(12)}
+                            onClick={decrementCurrentMonth}
                         >&lt;</span>
 
                         <span
-                            onClick={() => currentMonth + 1 < 12 ? setCurrentMonth(currentMonth + 1) : setCurrentMonth(0)}
+                            onClick={incrementCurrentMonth}
                         >&gt;</span>
                     </div>
                 </div>
@@ -133,30 +160,26 @@ export function Calendar(
                     <thead>
                     <tr>
                         {
-                            daysList.map((day: string): React.ReactElement => <th>{day.slice(0, 3).toUpperCase()}.</th>)
+                            daysList.map((day: string, index: number): React.ReactElement => <th
+                                key={index}>{day.slice(0, 3).toUpperCase()}.</th>)
                         }
                     </tr>
                     </thead>
                     <tbody>
                     {
                         // print rows
-                        formatedCalendarDays.map((rowCalendarDays: (DayInfo | null)[]): React.ReactElement => (
-                            <tr>
+                        formatedCalendarDays.map((rowCalendarDays: (DayInfo | null)[], index: number): React.ReactElement => (
+                            <tr key={index}>
                                 {
                                     // print row content
-                                    rowCalendarDays.map((rowDay: DayInfo | null): React.ReactElement | null => {
+                                    rowCalendarDays.map((rowDay: DayInfo | null, index: number): React.ReactElement | null => {
                                         return (
-                                            <td>
+                                            <td key={index}>
                                                 {
                                                     rowDay !== null &&
                                                     <CalendarElement
                                                         dayNumber={rowDay.number}
-                                                        onSelect={(day: number): void => {
-                                                            selectedDayData?.number !== day && setSelectedDay({
-                                                                number: day,
-                                                                day: rowDay.day
-                                                            })
-                                                        }}
+                                                        onSelect={(_) => handleSelectDay(rowDay)}
                                                         selected={selectedDayData != null && selectedDayData.number === rowDay.number}
                                                     />
                                                 }
@@ -174,7 +197,7 @@ export function Calendar(
             {
                 availabilityMap != null &&
                 <div className="availability">
-                    <p>Disponibilité du {selectedDayData!.day}</p>
+                    <p>Disponibilité(s) du {selectedDayData!.day}</p>
 
                     {
                         // show availabilities
@@ -182,22 +205,20 @@ export function Calendar(
                         Object
                             .keys(availabilityMap)
                             .map((key: string): number => parseInt(key))
-                            .map((key: number): React.ReactElement =>
-                                <>
+                            .map((key: number, index: number): React.ReactElement =>
+                                <div key={index}>
                                     {
                                         availabilityMap[key].map((availabity: Availability, index: number): React.ReactElement => (
                                             <CalendarDayChoice
+                                                key={index}
                                                 startTimeText={availabity.start}
                                                 endTimeText={availabity.end}
                                                 selected={selectedAvailability === index}
-                                                onSelect={(): void => {
-                                                    setSelectedAvailability(index)
-                                                    onAvailabilityChosen(selectedDayData!.number, availabity)
-                                                }}
+                                                onSelect={() => calendarDayChoiceHandler(index, availabity)}
                                             />
                                         ))
                                     }
-                                </>
+                                </div>
                             )
                     }
                 </div>

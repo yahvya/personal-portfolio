@@ -31,10 +31,14 @@ export function CalendarDayChoice(
 
     const classnames: string = classNames(...classNamesList)
 
+    // handlers
+
+    const handleChoiceClick = () => onSelect(startTimeText, endTimeText)
+
     return (
         <div
             className={classnames}
-            onClick={(): void => onSelect(startTimeText, endTimeText)}
+            onClick={handleChoiceClick}
         >
             <span>{startTimeText}</span>
             <span>-</span>
