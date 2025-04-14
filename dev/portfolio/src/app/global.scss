@@ -73,11 +73,17 @@
 
 // default styles
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     @extend .basic-text;
 
     background-color: var(--primary-background);
     color: var(--primary-text);
+    margin: 0;
+    padding: 0;
 }
 
 main {

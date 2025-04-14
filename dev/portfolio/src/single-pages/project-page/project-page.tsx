@@ -6,24 +6,14 @@ import {ReactTyped} from "react-typed";
 import {typingConfig} from "@/single-pages/project-page/config"
 import {motion} from "motion/react"
 import classNames from "classnames";
-
-/**
- * Project description
- */
-interface ProjectDescriptor {
-    projectName: string
-    technologies: string[]
-    previewImageLink: string
-    projectImagesLinks: string[]
-    tasks: string[]
-    projectHtmlDescription: string
-    visitLink: string | null
-    year: number
-}
+import {opacitySlideUpAnimation} from "@/animations/motion-common";
+import {requestProjects} from "@/api-handlers/personal-github/requests";
+import {ProjectDescriptor} from "@/api-handlers/personal-github/responses.dto";
 
 /**
  * Show project details
  * @param project Project details
+ * @param onExit Action on exit click
  * @constructor
  */
 function ProjectDetailsPage(
@@ -67,12 +57,7 @@ function ProjectDetailsPage(
                         {
                             typingIndex > 1 &&
                             <motion.div
-                                initial={{
-                                    opacity: 0
-                                }}
-                                whileInView={{
-                                    opacity: 1
-                                }}
+                                {...opacitySlideUpAnimation}
                                 dangerouslySetInnerHTML={{
                                     __html: project.projectHtmlDescription
                                 }}
@@ -84,12 +69,7 @@ function ProjectDetailsPage(
                 {
                     typingIndex > 1 &&
                     <motion.div
-                        initial={{
-                            opacity: 0
-                        }}
-                        whileInView={{
-                            opacity: 1
-                        }}
+                        {...opacitySlideUpAnimation}
                     >
                         <div className="a-section">
                             <p className="basic-text-bold">En</p>
@@ -122,13 +102,8 @@ function ProjectDetailsPage(
                         {
                             project.projectImagesLinks.map((imageLink: string, index: number): React.ReactElement => (
                                 <motion.img
+                                    {...opacitySlideUpAnimation}
                                     key={index}
-                                    initial={{
-                                        opacity: 0
-                                    }}
-                                    whileInView={{
-                                        opacity: 1
-                                    }}
                                     src={imageLink}
                                     alt="Project image"
                                 />
@@ -194,14 +169,9 @@ function ProjectListPage(
 export function ProjectPage(): React.ReactElement {
     // states
     const {data} = useQuery({
-        cacheTime: 0,
-        staleTime: 0,
         queryKey: "projects",
-        queryFn: async (): Promise<ProjectDescriptor[]> => {
-            const result = await fetch(process.env.NEXT_PUBLIC_PERSONAL_PROJECTS_FETCH_LINK!)
-
-            return await result.json()
-        }
+        queryFn: requestProjects,
+        refetchOnWindowFocus: false
     })
 
     const [ projectToShowDetails, setProjectToShowDetails ] = useState<ProjectDescriptor | null>(null)

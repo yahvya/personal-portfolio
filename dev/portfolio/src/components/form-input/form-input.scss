@@ -9,7 +9,6 @@
     flex-flow: row wrap;
     align-items: center;
     gap: 20px;
-    justify-content: space-between;
 
     img {
         width: 40px;
@@ -22,7 +21,8 @@
         color: inherit;
         font-family: inherit;
         min-width: 250px;
-        height: 30px;
+        width: 80%;
+        height: 35px;
 
         &::placeholder {
             color: inherit;

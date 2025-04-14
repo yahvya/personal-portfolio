@@ -1,0 +1,23 @@
+.contact-page, .contact-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 100%;
+}
+
+.contact-page {
+    align-items: center;
+
+    .page-title, .or {
+        text-align: center;
+        margin: 0;
+    }
+
+    .form-input, .form-textarea {
+        width: 700px;
+    }
+
+    .request-message {
+        text-align: center;
+    }
+}

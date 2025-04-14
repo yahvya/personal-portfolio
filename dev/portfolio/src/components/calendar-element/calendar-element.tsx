@@ -28,10 +28,14 @@ export function CalendarElement(
 
     const classnames: string = classNames(...classnameList)
 
+    // handlers
+
+    const handleElementClick = () => onSelect(dayNumber)
+
     return (
         <div
             className={classnames}
-            onClick={(): void => onSelect(dayNumber)}
+            onClick={handleElementClick}
         >
             <span>{dayNumber}</span>
         </div>
