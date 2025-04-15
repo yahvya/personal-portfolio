@@ -1,0 +1,12 @@
+.technical-stack-page {
+    .stack-elements-container {
+        width: 85%;
+        margin: auto;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        user-select: none;
+    }
+}
