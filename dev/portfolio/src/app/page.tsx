@@ -6,6 +6,8 @@ import {ProjectPage} from "@/single-pages/project-page/project-page"
 import {TechnicalStackPage} from "@/single-pages/technical-stack-page/technical-stack-page"
 import {ContactPage} from "@/single-pages/contact-page/contact-page"
 import "./portfolio-page.scss"
+import {useInView} from "motion/react"
+import Link from "next/link"
 
 export default function PortfolioPage() {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -15,6 +17,13 @@ export default function PortfolioPage() {
         projectsRef: useRef<HTMLDivElement>(null),
         technicalStackRef: useRef<HTMLDivElement>(null),
         contactRef: useRef<HTMLDivElement>(null),
+    }
+
+    const activeChecks = {
+        isPortfolioActive: useInView(pagesRefs.homeRef, {amount: 0.6}),
+        isProjectsActive: useInView(pagesRefs.projectsRef, {amount: 0.6}),
+        isTechnicalStackActive: useInView(pagesRefs.technicalStackRef, {amount: 0.6}),
+        isContactActive: useInView(pagesRefs.contactRef, {amount: 0.6}),
     }
 
     const refsList = [
@@ -68,11 +77,42 @@ export default function PortfolioPage() {
     }, [])
 
     return (
-        <div className="portfolio-page" ref={containerRef}>
-            <HomePage ref={pagesRefs.homeRef}/>
-            <ProjectPage ref={pagesRefs.projectsRef}/>
-            <TechnicalStackPage ref={pagesRefs.technicalStackRef}/>
-            <ContactPage ref={pagesRefs.contactRef}/>
-        </div>
+        <>
+            <div className="portfolio-page" ref={containerRef}>
+                <HomePage ref={pagesRefs.homeRef}/>
+                <ProjectPage ref={pagesRefs.projectsRef}/>
+                <TechnicalStackPage ref={pagesRefs.technicalStackRef}/>
+                <ContactPage ref={pagesRefs.contactRef}/>
+            </div>
+            <nav className="portfolio-nav small-text">
+                <Link
+                    href="#portfolio"
+                    className={activeChecks.isPortfolioActive ? "active" : ""}
+                >
+                    Portfolio
+                </Link>
+
+                <Link
+                    href="#projects"
+                    className={activeChecks.isProjectsActive ? "active" : ""}
+                >
+                    Projects
+                </Link>
+
+                <Link
+                    href="#technical-stack"
+                    className={activeChecks.isTechnicalStackActive ? "active" : ""}
+                >
+                    Technologies / Outils
+                </Link>
+
+                <Link
+                    href="#contact"
+                    className={activeChecks.isContactActive ? "active" : ""}
+                >
+                    Contactez-moi
+                </Link>
+            </nav>
+        </>
     )
 }
