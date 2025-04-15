@@ -13,6 +13,12 @@ export type ProjectDescriptor = {
 }
 
 /**
- * Projects fetch response
+ * A stack element data format
  */
+export type StackElementDescriptor = {
+    image: string
+    text: string
+}
+
 export type ProjectsFetchResponse = ProjectDescriptor[]
+export type StackElementsFetchResponse = StackElementDescriptor[]
