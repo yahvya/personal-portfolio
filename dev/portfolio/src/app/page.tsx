@@ -96,7 +96,7 @@ export default function PortfolioPage() {
                     href="#projects"
                     className={activeChecks.isProjectsActive ? "active" : ""}
                 >
-                    Projects
+                    Projets
                 </Link>
 
                 <Link
