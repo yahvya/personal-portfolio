@@ -1,35 +1,42 @@
 import "./project-page.scss"
-import React, {useEffect, useState} from "react"
+import React, {RefObject, useEffect, useState} from "react"
 import {useQuery} from "react-query"
 import {ProjectElement} from "@/components/project-element/project-element"
 import {ReactTyped} from "react-typed";
 import {typingConfig} from "@/single-pages/project-page/config"
 import {motion} from "motion/react"
 import classNames from "classnames";
-import {opacitySlideUpAnimation} from "@/animations/motion-common";
-import {requestProjects} from "@/api-handlers/personal-github/requests";
-import {ProjectDescriptor} from "@/api-handlers/personal-github/responses.dto";
+import {opacityGreatSlideUpAnimation, opacitySlideUpAnimation} from "@/animations/motion-common"
+import {requestProjects} from "@/api-handlers/personal-github/requests"
+import {ProjectDescriptor} from "@/api-handlers/personal-github/responses.dto"
 
 /**
  * Show project details
  * @param project Project details
  * @param onExit Action on exit click
+ * @param ref Page ref
  * @constructor
  */
 function ProjectDetailsPage(
     {
         project,
-        onExit
+        onExit,
+        ref
     }:
     {
         project: ProjectDescriptor,
-        onExit: (project: ProjectDescriptor) => void
+        onExit: (project: ProjectDescriptor) => void,
+        ref: RefObject<HTMLDivElement | null>,
     }
 ): React.ReactElement {
     const [ typingIndex, setTypingIndex ] = useState(0)
 
     return (
-        <div className="project-details-page">
+        <div
+            className="project-details-page page"
+            id="projects"
+            ref={ref}
+        >
             <div className="container">
                 <p
                     className="close basic-text-bold"
@@ -121,21 +128,24 @@ function ProjectDetailsPage(
  * @param show If true show list of hide it on false
  * @param projects projects to show
  * @param onProjectChose On project chose
+ * @param ref Page ref
  * @constructor
  */
 function ProjectListPage(
     {
         show,
         projects,
-        onProjectChose
+        onProjectChose,
+        ref
     }:
     {
+        ref: RefObject<HTMLDivElement | null>
         show: boolean,
         projects: ProjectDescriptor[],
         onProjectChose: (chosenProject: ProjectDescriptor) => any
     }
 ): React.ReactElement {
-    const classnames: string[] = [ "project-page" ]
+    const classnames: string[] = [ "project-page", "page" ]
 
     if (!show)
         classnames.push("hide")
@@ -143,19 +153,27 @@ function ProjectListPage(
     const classnamesList: string = classNames(...classnames)
 
     return (
-        <div className={classnamesList}>
+        <div
+            className={classnamesList}
+            id="projects"
+            ref={ref}
+        >
             {
                 projects.map((project: ProjectDescriptor, index: number): React.ReactElement => (
-                    <ProjectElement
+                    <motion.div
+                        {...opacityGreatSlideUpAnimation}
                         key={index}
-                        index={index + 1}
-                        projectName={project.projectName}
-                        technologies={project.technologies}
-                        imageLink={project.previewImageLink}
-                        onClickHandler={() => {
-                            onProjectChose(project)
-                        }}
-                    />
+                    >
+                        <ProjectElement
+                            index={index + 1}
+                            projectName={project.projectName}
+                            technologies={project.technologies}
+                            imageLink={project.previewImageLink}
+                            onClickHandler={() => {
+                                onProjectChose(project)
+                            }}
+                        />
+                    </motion.div>
                 ))
             }
         </div>
@@ -164,9 +182,13 @@ function ProjectListPage(
 
 /**
  * Project page
+ * @param ref Page ref
  * @constructor
  */
-export function ProjectPage(): React.ReactElement {
+export function ProjectPage(
+    {ref}:
+    { ref: RefObject<HTMLDivElement | null> }
+): React.ReactElement {
     // states
     const {data} = useQuery({
         queryKey: "projects",
@@ -191,6 +213,7 @@ export function ProjectPage(): React.ReactElement {
     return (
         <>
             <ProjectListPage
+                ref={ref}
                 show={showProjects}
                 projects={projects}
                 onProjectChose={(projectDetails: ProjectDescriptor) => setProjectToShowDetails(projectDetails)}
@@ -198,6 +221,7 @@ export function ProjectPage(): React.ReactElement {
             {
                 projectToShowDetails &&
                 <ProjectDetailsPage
+                    ref={ref}
                     project={projectToShowDetails}
                     onExit={() => setProjectToShowDetails(null)}
                 />

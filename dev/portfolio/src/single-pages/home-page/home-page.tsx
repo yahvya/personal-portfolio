@@ -1,22 +1,30 @@
-import React, {useState} from "react"
+import React, {RefObject, useState} from "react"
 import {ReactTyped} from "react-typed"
 import "./home-page.scss"
 import {CodeBlock, androidstudio} from "react-code-blocks"
 import {motion} from "motion/react"
 import {linksConfig, textToPrint, typingConfig} from "@/single-pages/home-page/config"
 import Link from "next/link"
-import {opacitySlideUpAnimation} from "@/animations/motion-common";
+import {opacitySlideUpAnimation} from "@/animations/motion-common"
 
 /**
  * Home page
+ * @param ref Page ref
  * @constructor
  */
-export function HomePage(): React.ReactElement {
+export function HomePage(
+    {ref}:
+    { ref: RefObject<HTMLDivElement | null> }
+): React.ReactElement {
     // states
     const [ indexToShow, setIndexToShow ] = useState(1)
 
     return (
-        <div className="home-page">
+        <div
+            id="portfolio"
+            className="home-page page"
+            ref={ref}
+        >
             <div className="typing">
                 <ReactTyped
                     {...typingConfig}

@@ -7,14 +7,18 @@ import {motion} from "motion/react"
 import {opacitySlideUpAnimation} from "@/animations/motion-common"
 import {Availability, AvailabilityMap, Calendar} from "@/components/calendar/calendar"
 import {requestAvailabilityListFor, requestBookMeet} from "@/api-handlers/portfolio-api/requests"
-import {BookMeetResponse} from "@/api-handlers/portfolio-api/responses.dto";
-import {ReactTyped} from "react-typed";
+import {BookMeetResponse} from "@/api-handlers/portfolio-api/responses.dto"
+import {ReactTyped} from "react-typed"
 
 /**
  * Contact page
+ * @param ref Page ref
  * @constructor
  */
-export function ContactPage(): React.ReactElement {
+export function ContactPage(
+    {ref}:
+    { ref: RefObject<HTMLDivElement | null> }
+): React.ReactElement {
     const currentDate: Date = new Date()
     const currentYear: number = currentDate.getFullYear()
     let currentMonth: number = currentDate.getMonth()
@@ -67,7 +71,11 @@ export function ContactPage(): React.ReactElement {
     }
 
     return (
-        <div className="contact-page">
+        <div
+            className="contact-page page"
+            id="contact"
+            ref={ref}
+        >
             <p className="page-title large-text-bold">Me contacter</p>
 
             <CustomButton
