@@ -48,3 +48,17 @@
         }
     }
 }
+
+@media screen and (max-width: 1214px) {
+    .page {
+        padding: 10px !important;
+    }
+
+    .portfolio-page {
+        padding-bottom: 1000px;
+    }
+
+    .portfolio-nav {
+        width: 98%
+    }
+}

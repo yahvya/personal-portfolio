@@ -17,3 +17,15 @@
         margin: auto auto 100px;
     }
 }
+
+@media screen and (max-width: 1155px) {
+    .stack-elements-container {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+
+        .stack-element img {
+            width: 30px !important;
+            height: 30px !important;
+        }
+    }
+}

@@ -34,8 +34,14 @@ export default function PortfolioPage() {
     ]
 
     useEffect(() => {
+        if (typeof window === "undefined")
+            return
+        if (window.innerWidth <= 1155)
+            return
+
         const container = containerRef.current
-        if (!container) return
+        if (!container)
+            return
 
         const handleWheel = (e: WheelEvent) => {
             const currentIndex = refsList.findIndex((ref) => {

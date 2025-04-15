@@ -48,3 +48,16 @@
         color: var(--secondary-text);
     }
 }
+
+@media screen and (max-width: 1155px) {
+    .project-element {
+        .row-1 p {
+            margin: 0;
+        }
+
+        .technologies {
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+    }
+}

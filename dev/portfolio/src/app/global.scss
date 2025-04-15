@@ -98,3 +98,19 @@ a {
     text-decoration: inherit;
     color: inherit;
 }
+
+@media screen and (max-width: 1214px) {
+    :root {
+        .small-text {
+            font-size: 12px;
+        }
+
+        .basic-text {
+            font-size: 15px;
+        }
+
+        .large-text {
+            font-size: 40px;
+        }
+    }
+}
