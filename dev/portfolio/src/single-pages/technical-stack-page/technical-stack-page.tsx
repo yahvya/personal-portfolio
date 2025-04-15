@@ -1,4 +1,4 @@
-import React, {RefObject, useRef} from "react"
+import React, {RefObject, useRef, useState} from "react"
 import "./technical-stack-page.scss"
 import {useQuery} from "react-query"
 import {requestTechnicalStackElements} from "@/api-handlers/personal-github/requests"
@@ -21,6 +21,7 @@ export function TechnicalStackPage(
 
     const titleRef = useRef<HTMLDivElement | null>(null)
     const isInView = useInView(titleRef, {once: false})
+    const [ alreadyPast, setAlreadyPast ] = useState(false)
 
     const {data} = useQuery({
         queryKey: "technical-stack",
@@ -28,6 +29,9 @@ export function TechnicalStackPage(
     })
 
     const technicalStackElements = data as StackElementsFetchResponse ?? []
+
+    if (isInView && !alreadyPast)
+        setAlreadyPast(true)
 
     return (
         <div
@@ -37,12 +41,13 @@ export function TechnicalStackPage(
         >
             <div className="page-title" ref={titleRef}>
                 {
-                    isInView && (
+                    (isInView || alreadyPast) && (
                         <ReactTyped
                             strings={[ "Une idée de ma stack technique ?" ]}
                             showCursor={false}
                             className="large-text-bold"
                             typeSpeed={30}
+                            loop={false}
                         />
                     )
                 }
