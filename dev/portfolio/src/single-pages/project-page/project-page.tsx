@@ -14,28 +14,24 @@ import {ProjectDescriptor} from "@/api-handlers/personal-github/responses.dto"
  * Show project details
  * @param project Project details
  * @param onExit Action on exit click
- * @param ref Page ref
  * @constructor
  */
 function ProjectDetailsPage(
     {
         project,
-        onExit,
-        ref
+        onExit
     }:
     {
         project: ProjectDescriptor,
-        onExit: (project: ProjectDescriptor) => void,
-        ref: RefObject<HTMLDivElement | null>,
+        onExit: (project: ProjectDescriptor) => void
     }
 ): React.ReactElement {
     const [ typingIndex, setTypingIndex ] = useState(0)
 
     return (
         <div
-            className="project-details-page page"
+            className="project-details-page"
             id="projects"
-            ref={ref}
         >
             <div className="container">
                 <p
@@ -128,24 +124,21 @@ function ProjectDetailsPage(
  * @param show If true show list of hide it on false
  * @param projects projects to show
  * @param onProjectChose On project chose
- * @param ref Page ref
  * @constructor
  */
 function ProjectListPage(
     {
         show,
         projects,
-        onProjectChose,
-        ref
+        onProjectChose
     }:
     {
-        ref: RefObject<HTMLDivElement | null>
         show: boolean,
         projects: ProjectDescriptor[],
         onProjectChose: (chosenProject: ProjectDescriptor) => any
     }
 ): React.ReactElement {
-    const classnames: string[] = [ "project-page", "page" ]
+    const classnames: string[] = [ "project-page" ]
 
     if (!show)
         classnames.push("hide")
@@ -156,7 +149,6 @@ function ProjectListPage(
         <div
             className={classnamesList}
             id="projects"
-            ref={ref}
         >
             {
                 projects.map((project: ProjectDescriptor, index: number): React.ReactElement => (
@@ -211,9 +203,11 @@ export function ProjectPage(
     const projects: ProjectDescriptor[] = (data ?? []) as ProjectDescriptor[]
 
     return (
-        <>
+        <div
+            className="page"
+            ref={ref}
+        >
             <ProjectListPage
-                ref={ref}
                 show={showProjects}
                 projects={projects}
                 onProjectChose={(projectDetails: ProjectDescriptor) => setProjectToShowDetails(projectDetails)}
@@ -221,11 +215,10 @@ export function ProjectPage(
             {
                 projectToShowDetails &&
                 <ProjectDetailsPage
-                    ref={ref}
                     project={projectToShowDetails}
                     onExit={() => setProjectToShowDetails(null)}
                 />
             }
-        </>
+        </div>
     )
 }
