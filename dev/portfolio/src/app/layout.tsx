@@ -1,7 +1,7 @@
 import React from "react"
 import "./global.scss"
 import {Metadata} from "next"
-import {AppQueryClientProvider} from "@/components/query-client-provider/app-query-client-provider";
+import {AppQueryClientProvider} from "@/application/components/query-client-provider/app-query-client-provider";
 
 /**
  * Metadata
