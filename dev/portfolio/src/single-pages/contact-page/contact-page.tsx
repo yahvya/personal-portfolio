@@ -7,14 +7,20 @@ import {motion} from "motion/react"
 import {opacitySlideUpAnimation} from "@/animations/motion-common"
 import {Availability, AvailabilityMap, Calendar} from "@/components/calendar/calendar"
 import {requestAvailabilityListFor, requestBookMeet} from "@/api-handlers/portfolio-api/requests"
-import {BookMeetResponse} from "@/api-handlers/portfolio-api/responses.dto";
-import {ReactTyped} from "react-typed";
+import {BookMeetResponse} from "@/api-handlers/portfolio-api/responses.dto"
+import {ReactTyped} from "react-typed"
+import withReactContent from "sweetalert2-react-content"
+import Swal from "sweetalert2";
 
 /**
  * Contact page
+ * @param ref Page ref
  * @constructor
  */
-export function ContactPage(): React.ReactElement {
+export function ContactPage(
+    {ref}:
+    { ref: RefObject<HTMLDivElement | null> }
+): React.ReactElement {
     const currentDate: Date = new Date()
     const currentYear: number = currentDate.getFullYear()
     let currentMonth: number = currentDate.getMonth()
@@ -50,24 +56,52 @@ export function ContactPage(): React.ReactElement {
     }
 
     const meetValidationChoiceHandler = (selectedMonth: number, selectedDay: number, availability: Availability): void => {
-        setShowCalendar(false)
+        const AppSwal = withReactContent(Swal)
 
-        requestBookMeet({
-            monthDay: selectedDay,
-            month: selectedMonth,
-            availabilityStart: availability.start,
-            availabilityEnd: availability.end
-        })
-            .then((response: BookMeetResponse) => {
-                setRequestMessage(response.error ?? "C'est noté ;)")
+        AppSwal
+            .fire({
+                title: "Votre email",
+                inputPlaceholder: "Entrez votre email pour le meet",
+                input: "email",
+                showCancelButton: true,
+                allowOutsideClick: true,
+                allowEscapeKey: true,
+                cancelButtonText: "Annuler",
+                confirmButtonText: "Valider le meet",
+                background: "var(--primary-background)",
+                confirmButtonColor: "var(--secondary-background)",
+                cancelButtonColor: "var(--secondary-background)",
+                color: "var(--primary-text)",
+                validationMessage: "Veuillez saisir une email valide"
             })
-            .catch(_ => {
-                setRequestMessage("Une erreur s'est produite durant la prise du rendez-vous :)")
+            .then((result) => {
+                if (!result.isConfirmed)
+                    return
+
+                requestBookMeet({
+                    monthDay: selectedDay,
+                    month: selectedMonth,
+                    availabilityStart: availability.start,
+                    availabilityEnd: availability.end,
+                    email: result.value
+                })
+                    .then((response: BookMeetResponse) => {
+                        setRequestMessage(response.error ?? "C'est noté ;)")
+                    })
+                    .catch(_ => {
+                        setRequestMessage("Une erreur s'est produite durant la prise du rendez-vous :)")
+                    })
             })
+
+        setShowCalendar(false)
     }
 
     return (
-        <div className="contact-page">
+        <div
+            className="contact-page page"
+            id="contact"
+            ref={ref}
+        >
             <p className="page-title large-text-bold">Me contacter</p>
 
             <CustomButton

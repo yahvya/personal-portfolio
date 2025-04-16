@@ -59,3 +59,21 @@
         }
     }
 }
+
+@media screen and (max-width: 1155px) {
+    .home-page {
+        .main-row {
+            flex-direction: column;
+            margin-bottom: 50px;
+
+            .code-block {
+                width: 98% !important;
+                margin: auto;
+            }
+        }
+
+        .links-row {
+            justify-content: center;
+        }
+    }
+}

@@ -32,6 +32,7 @@ export async function requestAvailabilityListFor(
  * @param monthDay Month day number
  * @param availabilityStart Availability start
  * @param availabilityEnd Availability end
+ * @param email User email
  * @attention month Start from 1 to 12
  */
 export async function requestBookMeet(
@@ -39,13 +40,15 @@ export async function requestBookMeet(
         month,
         monthDay,
         availabilityStart,
-        availabilityEnd
+        availabilityEnd,
+        email
     }:
     {
         month: number,
         monthDay: number,
-        availabilityStart: string
-        availabilityEnd: string
+        availabilityStart: string,
+        availabilityEnd: string,
+        email: string
     }
 ): Promise<BookMeetResponse> {
     return {

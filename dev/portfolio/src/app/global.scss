@@ -32,7 +32,7 @@
 
 .small-text {
     font-family: "JetBrains Mono", Arial, sans-serif;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .small-text-bold {
@@ -73,6 +73,15 @@
 
 // default styles
 
+::-webkit-scrollbar {
+    display: none;
+}
+
+html, body, * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -85,12 +94,23 @@ body {
     margin: 0;
     padding: 0;
 }
-
-main {
-    padding: 20px 20px 300px;
-}
-
 a {
     text-decoration: inherit;
     color: inherit;
+}
+
+@media screen and (max-width: 1214px) {
+    :root {
+        .small-text {
+            font-size: 12px;
+        }
+
+        .basic-text {
+            font-size: 15px;
+        }
+
+        .large-text {
+            font-size: 40px;
+        }
+    }
 }

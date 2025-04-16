@@ -14,13 +14,17 @@
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "kursor": "^0.1.6",
+      "locomotive-scroll": "^4.1.4",
     "motion": "^12.6.5",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-code-blocks": "^0.1.6",
     "react-dom": "^19.0.0",
+      "react-locomotive-scroll": "^0.2.2",
       "react-query": "^3.39.3",
-    "react-typed": "^2.0.12"
+      "react-typed": "^2.0.12",
+      "sweetalert2": "^11.18.0",
+      "sweetalert2-react-content": "^5.1.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "3",

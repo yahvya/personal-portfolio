@@ -1,14 +1,14 @@
 import "./project-page.scss"
-import React, {useEffect, useState} from "react"
+import React, {RefObject, useEffect, useState} from "react"
 import {useQuery} from "react-query"
 import {ProjectElement} from "@/components/project-element/project-element"
 import {ReactTyped} from "react-typed";
 import {typingConfig} from "@/single-pages/project-page/config"
 import {motion} from "motion/react"
 import classNames from "classnames";
-import {opacitySlideUpAnimation} from "@/animations/motion-common";
-import {requestProjects} from "@/api-handlers/personal-github/requests";
-import {ProjectDescriptor} from "@/api-handlers/personal-github/responses.dto";
+import {opacityGreatSlideUpAnimation, opacitySlideUpAnimation} from "@/animations/motion-common"
+import {requestProjects} from "@/api-handlers/personal-github/requests"
+import {ProjectDescriptor} from "@/api-handlers/personal-github/responses.dto"
 
 /**
  * Show project details
@@ -29,7 +29,10 @@ function ProjectDetailsPage(
     const [ typingIndex, setTypingIndex ] = useState(0)
 
     return (
-        <div className="project-details-page">
+        <div
+            className="project-details-page"
+            id="projects"
+        >
             <div className="container">
                 <p
                     className="close basic-text-bold"
@@ -143,19 +146,26 @@ function ProjectListPage(
     const classnamesList: string = classNames(...classnames)
 
     return (
-        <div className={classnamesList}>
+        <div
+            className={classnamesList}
+            id="projects"
+        >
             {
                 projects.map((project: ProjectDescriptor, index: number): React.ReactElement => (
-                    <ProjectElement
+                    <motion.div
+                        {...opacityGreatSlideUpAnimation}
                         key={index}
-                        index={index + 1}
-                        projectName={project.projectName}
-                        technologies={project.technologies}
-                        imageLink={project.previewImageLink}
-                        onClickHandler={() => {
-                            onProjectChose(project)
-                        }}
-                    />
+                    >
+                        <ProjectElement
+                            index={index + 1}
+                            projectName={project.projectName}
+                            technologies={project.technologies}
+                            imageLink={project.previewImageLink}
+                            onClickHandler={() => {
+                                onProjectChose(project)
+                            }}
+                        />
+                    </motion.div>
                 ))
             }
         </div>
@@ -164,9 +174,13 @@ function ProjectListPage(
 
 /**
  * Project page
+ * @param ref Page ref
  * @constructor
  */
-export function ProjectPage(): React.ReactElement {
+export function ProjectPage(
+    {ref}:
+    { ref: RefObject<HTMLDivElement | null> }
+): React.ReactElement {
     // states
     const {data} = useQuery({
         queryKey: "projects",
@@ -189,7 +203,10 @@ export function ProjectPage(): React.ReactElement {
     const projects: ProjectDescriptor[] = (data ?? []) as ProjectDescriptor[]
 
     return (
-        <>
+        <div
+            className="page"
+            ref={ref}
+        >
             <ProjectListPage
                 show={showProjects}
                 projects={projects}
@@ -202,6 +219,6 @@ export function ProjectPage(): React.ReactElement {
                     onExit={() => setProjectToShowDetails(null)}
                 />
             }
-        </>
+        </div>
     )
 }

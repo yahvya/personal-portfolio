@@ -61,3 +61,19 @@
         }
     }
 }
+
+@media screen and (max-width: 1155px) {
+    .calendar {
+        & * {
+            scale: 0.95;
+        }
+
+        table {
+            border-spacing: 1px !important;
+        }
+
+        .calendar-container {
+            margin-bottom: 30px;
+        }
+    }
+}
