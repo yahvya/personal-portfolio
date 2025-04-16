@@ -20,14 +20,17 @@ export async function requestAvailabilityListFor(
         monthDay: number
     }
 ): Promise<AvailabilityListResponse> {
-    return {
-        [monthDay]: [
-            {
-                start: "10H",
-                end: `13H`
-            }
-        ]
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            month: month,
+            monthDay: monthDay
+        })
     }
+
+    const response = await fetch("/api/availability-list", options)
+
+    return await response.json() as AvailabilityListResponse
 }
 
 /**

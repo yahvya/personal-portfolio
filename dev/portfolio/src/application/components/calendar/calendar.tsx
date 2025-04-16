@@ -3,7 +3,7 @@ import {eachDayOfInterval, startOfMonth, endOfMonth, format} from "date-fns"
 import {fr} from "date-fns/locale"
 import {CalendarElement} from "@/application/components/calendar-element/calendar-element"
 import "./calendar.scss"
-import {CalendarDayChoice} from "@/application/components/calendar-day-choice/calendar-day-choice";
+import {CalendarDayChoice} from "@/application/components/calendar-day-choice/calendar-day-choice"
 
 /**
  * A calendar day info
@@ -75,14 +75,14 @@ export function Calendar(
     }
 ): React.ReactElement {
     // states and effects
-    const [ currentMonth, setCurrentMonth ] = useState<number>(startMonth + 1)
+    const [ currentMonth, setCurrentMonth ] = useState<number>(startMonth)
     const [ selectedDayData, setSelectedDay ] = useState<DayInfo | null>(null)
     const [ availabilityMap, setAvailabilityMap ] = useState<AvailabilityMap | null>(null)
     const [ selectedAvailability, setSelectedAvailability ] = useState<number | null>(null)
 
     useEffect((): void => {
         if (selectedDayData) {
-            availabilityGetter(currentMonth === 1 ? 12 : currentMonth - 1, selectedDayData.number)
+            availabilityGetter(currentMonth, selectedDayData.number)
                 .then((availabilityMap: AvailabilityMap): void => setAvailabilityMap(availabilityMap))
 
             setSelectedAvailability(null)
@@ -95,7 +95,7 @@ export function Calendar(
     }, [ currentMonth ])
 
     const daysList: string[] = [ "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche" ]
-    const pastDate = new Date(year, currentMonth - 1, 0)
+    const monthDate = new Date(year, currentMonth - 1, 1)
     const daysOfMonth: DayInfo[] = getDaysInMonth({month: currentMonth, year: year})
 
     const formatedCalendarDays: (DayInfo | null)[][] = []
@@ -116,16 +116,16 @@ export function Calendar(
     }
 
     // month string
-    const monthString: string = format(pastDate, "LLLL", {locale: fr})
+    const monthString: string = format(monthDate, "LLLL", {locale: fr})
 
     // handlers
 
     const decrementCurrentMonth = (): void => {
-        currentMonth - 1 > 0 ? setCurrentMonth(currentMonth - 1) : setCurrentMonth(12)
+        setCurrentMonth(prev => (prev === 1 ? 12 : prev - 1))
     }
 
     const incrementCurrentMonth = (): void => {
-        currentMonth + 1 < 12 ? setCurrentMonth(currentMonth + 1) : setCurrentMonth(0)
+        setCurrentMonth(prev => (prev === 12 ? 1 : prev + 1))
     }
 
     const handleSelectDay = (rowDay: DayInfo) => {
@@ -137,7 +137,7 @@ export function Calendar(
 
     const calendarDayChoiceHandler = (index: number, availabity: Availability): void => {
         setSelectedAvailability(index)
-        onAvailabilityChosen(currentMonth === 1 ? 12 : currentMonth - 1, selectedDayData!.number, availabity)
+        onAvailabilityChosen(currentMonth, selectedDayData!.number, availabity)
     }
 
     return (

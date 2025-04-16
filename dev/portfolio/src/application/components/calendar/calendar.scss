@@ -36,6 +36,10 @@
         gap: 30px;
         border-left: solid 1px var(--secondary-light-background);
         padding-left: 10px;
+
+        .calendar-day-choice {
+            margin-bottom: 20px;
+        }
     }
 
     .calendar-header-controls, .calendar-header-controls .controls {
