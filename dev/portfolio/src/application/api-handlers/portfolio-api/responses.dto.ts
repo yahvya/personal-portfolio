@@ -17,3 +17,10 @@ export type AvailabilityListResponse = Record<number, AvailabilityFormat[]>
 export type BookMeetResponse = {
     error: string | null
 }
+
+/**
+ * Contact mail sending response
+ */
+export type SendContactMailResponse = {
+    error: string | null
+}

@@ -1,4 +1,8 @@
-import {AvailabilityListResponse, BookMeetResponse} from "@/application/api-handlers/portfolio-api/responses.dto"
+import {
+    AvailabilityListResponse,
+    BookMeetResponse,
+    SendContactMailResponse
+} from "@/application/api-handlers/portfolio-api/responses.dto"
 
 /**
  * Fetch the availability for the provided data
@@ -16,14 +20,17 @@ export async function requestAvailabilityListFor(
         monthDay: number
     }
 ): Promise<AvailabilityListResponse> {
-    return {
-        [monthDay]: [
-            {
-                start: "10H",
-                end: `13H ${monthDay}`
-            }
-        ]
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            month: month,
+            monthDay: monthDay
+        })
     }
+
+    const response = await fetch("/api/availability-list", options)
+
+    return await response.json() as AvailabilityListResponse
 }
 
 /**
@@ -51,7 +58,50 @@ export async function requestBookMeet(
         email: string
     }
 ): Promise<BookMeetResponse> {
-    return {
-        error: null
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            month: month,
+            monthDay: monthDay,
+            availabilityStart: availabilityStart,
+            availabilityEnd: availabilityEnd,
+            email: email
+        })
     }
+
+    const response = await fetch("/api/book-meet", options)
+
+    return await response.json() as BookMeetResponse
+}
+
+/**
+ * Request send contact mail
+ * @param email Email
+ * @param object Mail object
+ * @param message Mail message
+ */
+export async function requestSendContactMail(
+    {
+        email,
+        object,
+        message
+    }:
+    {
+        email: string,
+        object: string,
+        message: string
+    }
+): Promise<SendContactMailResponse> {
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            email: email,
+            messageObject: object,
+            message: message
+        })
+    }
+
+    const response = await fetch("/api/send-contact-mail", options)
+
+    return await response.json() as SendContactMailResponse
 }

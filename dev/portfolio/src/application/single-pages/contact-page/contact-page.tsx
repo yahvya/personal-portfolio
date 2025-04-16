@@ -1,4 +1,4 @@
-import React, {RefObject, useRef, useState} from "react"
+import React, {FormEvent, RefObject, useRef, useState} from "react"
 import {FormInput} from "@/application/components/form-input/form-input"
 import {FormTextarea} from "@/application/components/form-textarea/form-textarea"
 import "./contact-page.scss"
@@ -6,11 +6,16 @@ import {CustomButton} from "@/application/components/custom-button/custom-button
 import {motion} from "motion/react"
 import {opacitySlideUpAnimation} from "@/application/animations/motion-common"
 import {Availability, AvailabilityMap, Calendar} from "@/application/components/calendar/calendar"
-import {requestAvailabilityListFor, requestBookMeet} from "@/application/api-handlers/portfolio-api/requests"
-import {BookMeetResponse} from "@/application/api-handlers/portfolio-api/responses.dto"
+import {
+    requestAvailabilityListFor,
+    requestBookMeet,
+    requestSendContactMail
+} from "@/application/api-handlers/portfolio-api/requests"
+import {BookMeetResponse, SendContactMailResponse} from "@/application/api-handlers/portfolio-api/responses.dto"
 import {ReactTyped} from "react-typed"
 import withReactContent from "sweetalert2-react-content"
 import Swal from "sweetalert2";
+import {useQuery} from "react-query";
 
 /**
  * Contact page
@@ -31,13 +36,43 @@ export function ContactPage(
     const emailInputRef: RefObject<HTMLInputElement | null> = useRef<null | HTMLInputElement>(null)
     const messageObjectInputRef: RefObject<HTMLInputElement | null> = useRef<null | HTMLInputElement>(null)
     const messageAreaRef: RefObject<HTMLTextAreaElement | null> = useRef<null | HTMLTextAreaElement>(null)
+    const formMessageRef: RefObject<HTMLParagraphElement | null> = useRef<HTMLParagraphElement | null>(null)
 
     // states
 
     const [ showCalendar, setShowCalendar ] = useState(false)
     const [ requestMessage, setRequestMessage ] = useState<string | null>(null)
+    const {data, refetch} = useQuery({
+        cacheTime: 0,
+        staleTime: 0,
+        queryKey: "contact-mail",
+        enabled: false,
+        queryFn: async (): Promise<SendContactMailResponse> => {
+            if (emailInputRef.current === null || messageObjectInputRef.current === null || messageAreaRef.current === null)
+                return {error: "Une erreur technique s'est produite"}
+
+            const response: SendContactMailResponse = await requestSendContactMail({
+                email: emailInputRef.current.value,
+                message: messageAreaRef.current.value,
+                object: messageObjectInputRef.current.value
+            })
+
+            if (response.error === null) {
+                emailInputRef.current.value = messageAreaRef.current.value = messageObjectInputRef.current.value = ""
+                formMessageRef.current!.textContent = "C'est noté ;)"
+                formMessageRef.current?.focus()
+            }
+
+            return response
+        }
+    })
 
     // handlers
+
+    const handleContactMailSend = (e: FormEvent) => {
+        e.preventDefault()
+        refetch()
+    }
 
     const handleMeetButtonClick = () => {
         !showCalendar && setShowCalendar(true)
@@ -141,7 +176,7 @@ export function ContactPage(
 
             <p className="or">OU</p>
 
-            <form>
+            <form onSubmit={handleContactMailSend}>
                 <motion.div
                     {...opacitySlideUpAnimation}
                 >
@@ -191,6 +226,11 @@ export function ContactPage(
                     }}
                 />
             </form>
+
+            <p
+                className="form-message"
+                ref={formMessageRef}
+            >{data && data.error !== null ? data.error : ""}</p>
         </div>
     )
 }
