@@ -1,4 +1,8 @@
-import {AvailabilityListResponse, BookMeetResponse} from "@/application/api-handlers/portfolio-api/responses.dto"
+import {
+    AvailabilityListResponse,
+    BookMeetResponse,
+    SendContactMailResponse
+} from "@/application/api-handlers/portfolio-api/responses.dto"
 
 /**
  * Fetch the availability for the provided data
@@ -54,4 +58,36 @@ export async function requestBookMeet(
     return {
         error: null
     }
+}
+
+/**
+ * Request send contact mail
+ * @param email Email
+ * @param object Mail object
+ * @param message Mail message
+ */
+export async function requestSendContactMail(
+    {
+        email,
+        object,
+        message
+    }:
+    {
+        email: string,
+        object: string,
+        message: string
+    }
+): Promise<SendContactMailResponse> {
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            email: email,
+            messageObject: object,
+            message: message
+        })
+    }
+
+    const response = await fetch("/api/send-contact-mail", options)
+
+    return await response.json() as SendContactMailResponse
 }
