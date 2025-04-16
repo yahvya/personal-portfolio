@@ -12,9 +12,9 @@ export const config = {
 }
 
 const schema = z.object({
-    email: z.string().email("Veuillez fournir un email valid"),
-    messageObject: z.string().min(10, "Veuillez fournir un objet descriptif"),
-    message: z.string().min(20, "Veuillez fournir un message descriptif"),
+    email: z.string({message: "Email invalide"}).email("Veuillez fournir un email valid"),
+    messageObject: z.string({message: "Objet invalide"}).min(10, "Veuillez fournir un objet descriptif"),
+    message: z.string({message: "Message invalide"}).min(20, "Veuillez fournir un message descriptif"),
 }, {
     message: "Requête invalide"
 })
@@ -39,7 +39,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     mailTransport.verify(async (error) => {
         try {
             if (error !== null) {
-                console.log(error.message)
                 res.json({error: "Une erreur technique s'est produite veuillez utiliser l'icône de mail sur la page d'accueil"})
                 return
             }

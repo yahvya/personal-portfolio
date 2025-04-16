@@ -24,7 +24,7 @@ export async function requestAvailabilityListFor(
         [monthDay]: [
             {
                 start: "10H",
-                end: `13H ${monthDay}`
+                end: `13H`
             }
         ]
     }
@@ -55,9 +55,20 @@ export async function requestBookMeet(
         email: string
     }
 ): Promise<BookMeetResponse> {
-    return {
-        error: null
+    const options = {
+        method: "POST",
+        body: JSON.stringify({
+            month: month,
+            monthDay: monthDay,
+            availabilityStart: availabilityStart,
+            availabilityEnd: availabilityEnd,
+            email: email
+        })
     }
+
+    const response = await fetch("/api/book-meet", options)
+
+    return await response.json() as BookMeetResponse
 }
 
 /**
