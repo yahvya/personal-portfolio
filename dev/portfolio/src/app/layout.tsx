@@ -1,6 +1,7 @@
 import React from "react"
 import "./global.scss"
-import {Metadata} from "next";
+import {Metadata} from "next"
+import {AppQueryClientProvider} from "@/application/components/query-client-provider/app-query-client-provider";
 
 /**
  * Metadata
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     description: "Yahaya Bathily, Développeur Fullstack Web & Mobile",
     applicationName: "Portfolio Yahaya",
     authors: [
-        {name: "Yahaya Bathily", url: process.env.PERSONAL_GITHUB_LINK}
+        {name: "Yahaya Bathily", url: process.env.NEXT_PUBLIC_PERSONAL_GITHUB_LINK}
     ],
     category: "Portfolio",
     keywords: [ "portfolio", "développeur", "fullstack", "web", "mobile", "programmation", "freelance", "informatique" ],
@@ -28,10 +29,12 @@ export default function SinglePageLayout(
     { children: React.ReactNode }
 ): React.ReactElement {
     return (
-        <html lang="fr">
-        <body>
-        <main>{children}</main>
-        </body>
-        </html>
+        <AppQueryClientProvider>
+            <html lang="fr">
+            <body cz-shortcut-listen="true">
+            <main>{children}</main>
+            </body>
+            </html>
+        </AppQueryClientProvider>
     )
 }

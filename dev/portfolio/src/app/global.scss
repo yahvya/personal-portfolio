@@ -32,7 +32,7 @@
 
 .small-text {
     font-family: "JetBrains Mono", Arial, sans-serif;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .small-text-bold {
@@ -64,7 +64,7 @@
 
 :root {
     --primary-background: #0D0D0D;
-    --primary-text: FFFFFF;
+    --primary-text: #FFFFFF;
     --secondary-background: #191919;
     --secondary-text: #FFFFFF;
     --secondary-light-text: #FFFFFF;
@@ -73,9 +73,44 @@
 
 // default styles
 
+::-webkit-scrollbar {
+    display: none;
+}
+
+html, body, * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     @extend .basic-text;
 
     background-color: var(--primary-background);
     color: var(--primary-text);
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+@media screen and (max-width: 1214px) {
+    :root {
+        .small-text {
+            font-size: 12px;
+        }
+
+        .basic-text {
+            font-size: 15px;
+        }
+
+        .large-text {
+            font-size: 40px;
+        }
+    }
 }
