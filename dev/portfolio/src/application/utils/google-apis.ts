@@ -9,15 +9,10 @@ export async function getGoogleClient(
     {scopes}:
     { scopes: string[] }
 ) {
-    const keyFilePath: string = `${process.cwd()}${process.env.GOOGLE_AUTH_FILE}`
-
-    if (!fs.existsSync(keyFilePath)) {
-        const fileContent = Buffer.from(process.env.GOOGLE_AUTH_ENCODE!, "base64").toString()
-        fs.appendFileSync(keyFilePath, fileContent)
-    }
+    const credentials = JSON.parse(Buffer.from(process.env.GOOGLE_AUTH_ENCODE!, "base64").toString())
 
     const authHandler = new google.auth.GoogleAuth({
-        keyFile: keyFilePath,
+        credentials: credentials,
         scopes: scopes
     })
 
