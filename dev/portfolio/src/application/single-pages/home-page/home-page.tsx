@@ -69,7 +69,7 @@ export function HomePage(
                             className="img-container"
                             {...opacitySlideUpAnimation}
                         >
-                            <img src="/images/me.jpg" alt="Me"/>
+                            <img src="https://yahvya.github.io/global-documents-config/portfolio/me.png" alt="Me"/>
                         </motion.div>
                     </div>
 
