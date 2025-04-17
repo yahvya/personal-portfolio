@@ -9,6 +9,8 @@ import classNames from "classnames";
 import {opacityGreatSlideUpAnimation, opacitySlideUpAnimation} from "@/application/animations/motion-common"
 import {requestProjects} from "@/application/api-handlers/personal-github/requests"
 import {ProjectDescriptor} from "@/application/api-handlers/personal-github/responses.dto"
+import {CustomButton} from "@/application/components/custom-button/custom-button";
+import Link from "next/link";
 
 /**
  * Show project details
@@ -94,6 +96,17 @@ function ProjectDetailsPage(
                                 }
                             </ul>
                         </div>
+
+                        {
+                            project.visitLink !== null && (
+                                <Link href={project.visitLink!} title={"Voir le projet"}>
+                                    <CustomButton
+                                        buttonText={"Voir le projet"}
+                                        buttonCustomDescriptors={{}}
+                                    />
+                                </Link>
+                            )
+                        }
                     </motion.div>
                 }
             </div>
