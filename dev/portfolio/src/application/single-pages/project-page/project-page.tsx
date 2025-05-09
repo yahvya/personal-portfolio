@@ -1,10 +1,10 @@
 import "./project-page.scss"
-import React, {RefObject, useEffect, useState} from "react"
+import React, {RefObject, useEffect, useRef, useState} from "react"
 import {useQuery} from "react-query"
 import {ProjectElement} from "@/application/components/project-element/project-element"
 import {ReactTyped} from "react-typed";
 import {typingConfig} from "@/application/single-pages/project-page/config"
-import {motion} from "motion/react"
+import {motion, useInView} from "motion/react"
 import classNames from "classnames";
 import {opacityGreatSlideUpAnimation, opacitySlideUpAnimation} from "@/application/animations/motion-common"
 import {requestProjects} from "@/application/api-handlers/personal-github/requests"
@@ -29,6 +29,12 @@ function ProjectDetailsPage(
     }
 ): React.ReactElement {
     const [ typingIndex, setTypingIndex ] = useState(0)
+    const closeRef = useRef<HTMLParagraphElement|null>(null)
+
+    useEffect(() => {
+        if(closeRef !== null && typingIndex > 0)
+            closeRef.current!.scrollIntoView()
+    }, [closeRef,typingIndex])
 
     return (
         <div
@@ -39,6 +45,7 @@ function ProjectDetailsPage(
                 <p
                     className="close basic-text-bold"
                     onClick={() => onExit(project)}
+                    ref={closeRef}
                 >&lt;- Fermer</p>
 
                 <p className="large-text-bold">
@@ -99,7 +106,7 @@ function ProjectDetailsPage(
 
                         {
                             project.visitLink !== null && (
-                                <Link href={project.visitLink!} title={"Voir le projet"}>
+                                <Link href={project.visitLink!} title={"Voir le projet"} className={"see-project-button"}>
                                     <CustomButton
                                         buttonText={"Voir le projet"}
                                         buttonCustomDescriptors={{}}
@@ -204,6 +211,10 @@ export function ProjectPage(
     const [ projectToShowDetails, setProjectToShowDetails ] = useState<ProjectDescriptor | null>(null)
     const [ showProjects, setShowProjects ] = useState<boolean>(true)
 
+    const titleRef = useRef<HTMLDivElement | null>(null)
+    const isInView = useInView(titleRef, {once: false})
+    const [ alreadyPast, setAlreadyPast ] = useState(false)
+
     useEffect(() => {
         if (projectToShowDetails)
             setShowProjects(false)
@@ -215,11 +226,28 @@ export function ProjectPage(
 
     const projects: ProjectDescriptor[] = (data ?? []) as ProjectDescriptor[]
 
+    if (isInView && !alreadyPast)
+        setAlreadyPast(true)
+
     return (
         <div
             className="page"
             ref={ref}
         >
+            <div className="project-page-title" ref={titleRef}>
+                {
+                    (isInView || alreadyPast) && (
+                        <ReactTyped
+                            strings={[ "Quelques projets sympa ;)" ]}
+                            showCursor={false}
+                            className="large-text-bold"
+                            typeSpeed={30}
+                            loop={false}
+                        />
+                    )
+                }
+            </div>
+
             <ProjectListPage
                 show={showProjects}
                 projects={projects}

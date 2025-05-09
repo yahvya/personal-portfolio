@@ -11,11 +11,12 @@ export const typingConfig = {
  * Code text to print
  */
 export const textToPrint: string =
-    `<ReactComponent>
+    `
 Passionné par le développement de jeux vidéos, je me suis lancé dans le monde de l’informatique dans cet objectif.
+
 Et petit à petit, j'ai appris de plus en plus de choses.
-Découvrez en plus sur moi en scrollant ;)
-</ReactComponent>`
+
+Découvrez en plus sur moi en scrollant ;)`
 
 /**
  * Link configuration
