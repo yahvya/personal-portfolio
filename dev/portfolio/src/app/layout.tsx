@@ -16,7 +16,10 @@ export const metadata: Metadata = {
     category: "Portfolio",
     keywords: [ "portfolio", "développeur", "fullstack", "web", "mobile", "programmation", "freelance", "informatique" ],
     robots: {index: true, follow: true},
-    creator: "Yahaya Bathily"
+    creator: "Yahaya Bathily",
+    verification: {
+        google: "Wu8G070PZXnWEz_Ou2QCDuxPoFsvqb_zQ2GRfl29jQs"
+    }
 }
 
 /**
