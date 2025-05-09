@@ -1,7 +1,6 @@
 import React, {RefObject, useState} from "react"
 import {ReactTyped} from "react-typed"
 import "./home-page.scss"
-import {CodeBlock, androidstudio} from "react-code-blocks"
 import {motion} from "motion/react"
 import {linksConfig, textToPrint, typingConfig} from "@/application/single-pages/home-page/config"
 import Link from "next/link"
@@ -56,13 +55,18 @@ export function HomePage(
                             className="code-block"
                             {...opacitySlideUpAnimation}
                         >
-                            <CodeBlock
-                                text={textToPrint}
-                                theme={androidstudio}
-                                language="tsx"
-                                showLineNumbers={true}
-                                wrapLongLines={true}
-                            />
+                            <code className="description-pre">
+                                &lt;code&gt;
+                                <pre>
+                                    <ReactTyped
+                                        {...typingConfig}
+                                        typeSpeed={35}
+                                        strings={[ textToPrint ]}
+                                        showCursor={true}
+                                    />
+                                </pre>
+                                &lt;code/&gt;
+                            </code>
                         </motion.div>
 
                         <motion.div

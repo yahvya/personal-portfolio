@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect, useRef} from "react"
+import React, {useRef} from "react"
 import {HomePage} from "@/application/single-pages/home-page/home-page"
 import {ProjectPage} from "@/application/single-pages/project-page/project-page"
 import {TechnicalStackPage} from "@/application/single-pages/technical-stack-page/technical-stack-page"
@@ -8,6 +8,7 @@ import {ContactPage} from "@/application/single-pages/contact-page/contact-page"
 import "./portfolio-page.scss"
 import {useInView} from "motion/react"
 import Link from "next/link"
+import {MouseScroll} from "@/application/components/mouse-scroll/mouse-scroll";
 
 export default function PortfolioPage() {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -26,70 +27,29 @@ export default function PortfolioPage() {
         isContactActive: useInView(pagesRefs.contactRef, {amount: 0.6}),
     }
 
-    const refsList = [
-        pagesRefs.homeRef,
-        pagesRefs.projectsRef,
-        pagesRefs.technicalStackRef,
-        pagesRefs.contactRef,
-    ]
-
-    useEffect(() => {
-        if (typeof window === "undefined")
-            return
-        if (window.innerWidth <= 1155)
-            return
-
-        const container = containerRef.current
-        if (!container)
-            return
-
-        const handleWheel = (e: WheelEvent) => {
-            const currentIndex = refsList.findIndex((ref) => {
-                if (!ref.current) return false
-                const rect = ref.current.getBoundingClientRect()
-                return Math.abs(rect.left) < 10
-            })
-
-            const current = refsList[currentIndex]?.current
-            if (!current) return
-
-            const {scrollTop, scrollHeight, clientHeight} = current
-            const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1
-            const isAtTop = scrollTop <= 0
-
-            if (e.deltaY > 0 && isAtBottom && currentIndex < refsList.length - 1) {
-                e.preventDefault()
-                const next = refsList[currentIndex + 1]?.current
-                if (next) {
-                    container.scrollTo({
-                        left: next.offsetLeft,
-                        behavior: "smooth",
-                    })
-                }
-            } else if (e.deltaY < 0 && isAtTop && currentIndex > 0) {
-                e.preventDefault()
-                const prev = refsList[currentIndex - 1]?.current
-                if (prev) {
-                    container.scrollTo({
-                        left: prev.offsetLeft,
-                        behavior: "smooth",
-                    })
-                }
-            }
-        }
-
-        container.addEventListener("wheel", handleWheel, {passive: false})
-        return () => container.removeEventListener("wheel", handleWheel)
-    }, [])
-
     return (
         <>
             <div className="portfolio-page" ref={containerRef}>
-                <HomePage ref={pagesRefs.homeRef}/>
-                <ProjectPage ref={pagesRefs.projectsRef}/>
-                <TechnicalStackPage ref={pagesRefs.technicalStackRef}/>
-                <ContactPage ref={pagesRefs.contactRef}/>
+                <div className="a-page">
+                    <HomePage ref={pagesRefs.homeRef}/>
+                    <MouseScroll/>
+                </div>
+
+                <div className="a-page">
+                    <ProjectPage ref={pagesRefs.projectsRef}/>
+                    <MouseScroll/>
+                </div>
+
+                <div className="a-page">
+                    <TechnicalStackPage ref={pagesRefs.technicalStackRef}/>
+                    <MouseScroll/>
+                </div>
+
+                <div className="a-page">
+                    <ContactPage ref={pagesRefs.contactRef}/>
+                </div>
             </div>
+
             <nav className="portfolio-nav small-text">
                 <Link
                     href="#portfolio"

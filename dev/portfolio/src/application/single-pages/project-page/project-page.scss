@@ -4,11 +4,18 @@
     }
 }
 
+.project-page-title {
+  text-align: center;
+  max-width: 90%;
+  margin: auto auto 80px;
+}
+
 .project-details-page {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     gap: 70px;
+    min-height: 80vh;
 
     .close {
         text-decoration: underline;
@@ -47,6 +54,11 @@
             margin-bottom: 15px;
         }
     }
+}
+
+.see-project-button{
+  display: block;
+  margin-top: 30px;
 }
 
 @media screen and (max-width: 1155px) {

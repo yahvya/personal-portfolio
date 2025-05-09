@@ -1,6 +1,21 @@
 .home-page {
+    min-height: 60vh;
+
     .light-text {
         color: var(--secondary-light-background);
+    }
+
+    .description-pre{
+        display: block;
+        max-width: 100%;
+        font-size: 20px;
+        font-style: italic;
+
+        pre{
+            text-wrap: wrap;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
     }
 
     .main-row {
@@ -10,9 +25,18 @@
         align-items: center;
         gap: 40px;
         margin-top: 50px;
+        margin-bottom: 40px;
 
         .code-block {
             width: 70%;
+            line-height: 27px;
+            user-select: none;
+
+
+            pre{
+                border-radius: 5px;
+                padding: 15px !important;
+            }
         }
 
         .img-container {
@@ -63,7 +87,7 @@
 @media screen and (max-width: 1155px) {
     .home-page {
         .main-row {
-            flex-direction: column;
+            flex-direction: column-reverse;
             margin-bottom: 50px;
 
             .code-block {
