@@ -39,7 +39,7 @@ export function HomePage(
                 <div className="typing">
                     <ReactTyped
                         {...typingConfig}
-                        strings={[ "Yahaya Bathily", "Développeur Full Stack" ]}
+                        strings={[ "Yahaya Bathily", "Développeur Full Stack", "Passionné d'informatique et de programmation" ]}
                         className="large-text-bold"
                         onStringTyped={() => indexToShow !== 3 && setIndexToShow(3)}
                         loop
@@ -56,7 +56,7 @@ export function HomePage(
                             {...opacitySlideUpAnimation}
                         >
                             <code className="description-pre">
-                                &lt;code&gt;
+                                &lt;readme&gt;
                                 <pre>
                                     <ReactTyped
                                         {...typingConfig}
@@ -65,7 +65,7 @@ export function HomePage(
                                         showCursor={true}
                                     />
                                 </pre>
-                                &lt;code/&gt;
+                                &lt;readme/&gt;
                             </code>
                         </motion.div>
 

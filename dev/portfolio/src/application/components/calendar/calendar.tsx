@@ -181,6 +181,7 @@ export function Calendar(
                                                         dayNumber={rowDay.number}
                                                         onSelect={(_) => handleSelectDay(rowDay)}
                                                         selected={selectedDayData != null && selectedDayData.number === rowDay.number}
+                                                        blink={selectedDayData != null && selectedDayData.number === rowDay.number && availabilityMap === null}
                                                     />
                                                 }
                                             </td>

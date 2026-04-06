@@ -7,7 +7,10 @@ const meta: Meta = {
     title: "UI/Calendar element",
     component: CalendarElement,
     argTypes: {
-        onSelect: {context: "object"}
+        onSelect: {context: "object"},
+    },
+    args: {
+        blink: false
     }
 }
 
@@ -28,5 +31,13 @@ export const SelectedElement: CalendarElementStory = {
         dayNumber: 30,
         selected: true,
         onSelect: (): void => console.log("selected")
+    }
+}
+
+export const BlinkingElement: CalendarElementStory = {
+    args: {
+        dayNumber: 12,
+        selected: true,
+        blink: true
     }
 }

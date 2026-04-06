@@ -1,58 +1,60 @@
 .portfolio-page {
-    max-width: 100%;
+  max-width: 100%;
 
-    & > .a-page {
-        min-height: 100vh;
-        padding-top: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        margin-bottom: 100px;
+  & > .a-page {
+    min-height: 100vh;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 100px;
 
-      .mouse-scroll{
-        margin: 20px auto auto;
-        width: 300px;
-      }
+    .mouse-scroll {
+      margin: 20px auto auto;
+      width: 300px;
     }
+  }
 }
 
 .portfolio-nav {
-    background-color: var(--secondary-background);
-    width: fit-content;
-    max-width: 100%;
-    padding: 20px;
-    position: fixed;
-    left: 50%;
-    bottom: 20px;
-    transform: translateX(-50%);
-    z-index: 3;
-    border-radius: 7px;
-    display: flex;
-    flex-flow: row wrap;
-    gap: 20px;
+  background-color: var(--secondary-background);
+  border: solid 1px var(--secondary-light-background);
+  width: fit-content;
+  max-width: 100%;
+  padding: 20px;
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 3;
+  border-radius: 7px;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
 
-    a {
-        transition: color 0.3s;
+  a {
+    transition: color 0.3s, font-weight 0.3s;
 
-        &:hover, &.active {
-            color: var(--secondary-light-background);
-        }
-
-        &:not(&:last-child)::after {
-            content: " ->";
-        }
+    &:hover, &.active {
+      color: var(--secondary-light-background);
+      font-weight: bold;
     }
+
+    &:not(&:last-child)::after {
+      content: " ->";
+    }
+  }
 }
 
 @media screen and (max-width: 1214px) {
-    .page {
-        padding: 10px !important;
-    }
+  .page {
+    padding: 10px !important;
+  }
 
-    .portfolio-page {
-        padding-bottom: 1000px;
-    }
+  .portfolio-page {
+    padding-bottom: 1000px;
+  }
 
-    .portfolio-nav {
-        width: 98%
-    }
+  .portfolio-nav {
+    width: 98%
+  }
 }

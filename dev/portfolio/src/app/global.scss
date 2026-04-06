@@ -62,13 +62,33 @@
 
 // colors
 
-:root {
-    --primary-background: #0D0D0D;
-    --primary-text: #FFFFFF;
-    --secondary-background: #191919;
-    --secondary-text: #FFFFFF;
-    --secondary-light-text: #FFFFFF;
-    --secondary-light-background: #4A4A4A;
+//:root { //Dark theme
+//    --primary-background: #0D0D0D;
+//    --primary-text: #FFFFFF;
+//    --secondary-background: #191919;
+//    --secondary-text: #FFFFFF;
+//    --secondary-light-text: #FFFFFF;
+//    --secondary-light-background: #4A4A4A;
+//}
+
+//:root { // Blue theme
+//  --primary-background: #0A0F1C;
+//  --primary-text: #E6EAF2;
+//  --secondary-background: #121A2B;
+//  --secondary-text: #FFFFFF;
+//  --secondary-light-text: #C9D4FF;
+//  --secondary-light-background: #2A3A5F;
+//}
+
+:root { // Light blue
+  --primary-background: #0B0F1A;
+  --primary-text: #EDEFFF;
+
+  --secondary-background: #141A2E;
+  --secondary-text: #FFFFFF;
+
+  --secondary-light-text: #A9B8FF;
+  --secondary-light-background: #2B3F8F;
 }
 
 // default styles

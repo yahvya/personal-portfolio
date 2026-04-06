@@ -4,10 +4,10 @@ import "./calendar-day-choice.scss"
 
 /**
  * Calendar day choice
- * @param startTimeText Start time text (ex :  8h)
- * @param endTimeText End time text (ex : 10h30)
+ * @param startTimeText Start time text (ex: 8h)
+ * @param endTimeText End time text (ex: 10h30)
  * @param selected If the element is selected
- * @param onSelect Action handler if element is selected / clicked
+ * @param onSelect Action handler if the element is selected / clicked
  * @constructor
  */
 export function CalendarDayChoice(

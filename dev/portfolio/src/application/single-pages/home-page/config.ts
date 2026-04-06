@@ -2,8 +2,8 @@
  * Typing default config
  */
 export const typingConfig = {
-    typeSpeed: 70,
-    backSpeed: 20,
+    typeSpeed: 60,
+    backSpeed: 15,
     backDelay: 2000,
 }
 
