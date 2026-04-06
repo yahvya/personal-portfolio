@@ -21,7 +21,7 @@
     "kursor": "^0.1.6",
     "locomotive-scroll": "^4.1.4",
     "motion": "^12.6.5",
-    "next": "15.3.0",
+    "next": "15.3.8",
     "nodemailer": "^6.10.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
