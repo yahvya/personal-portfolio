@@ -32,6 +32,7 @@ export function ProjectElement(
         <div
             className="project-element large-text-bold"
             onClick={onClickHandler}
+            title={"En savoir plus !"}
         >
             <div className="data-side">
                 <div className="row-1">

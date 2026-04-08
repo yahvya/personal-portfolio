@@ -7,7 +7,7 @@ import {AppQueryClientProvider} from "@/application/components/query-client-prov
  * Metadata
  */
 export const metadata: Metadata = {
-    title: "Portfolio",
+    title: "Yahaya Bathily",
     description: "Yahaya Bathily, Développeur Fullstack Web & Mobile",
     applicationName: "Portfolio Yahaya",
     authors: [
